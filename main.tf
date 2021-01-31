@@ -22,6 +22,10 @@ resource "azurerm_resource_group" "tf_test" {
   location = "Germany West Central"
 }
 
+variable "imagebuild" {
+  type        = string
+  description = "Latest Image Build"
+}
 resource "azurerm_container_group" "tfcg_test" {
   name                = "weatherapi"
   location            = azurerm_resource_group.tf_test.location
@@ -33,7 +37,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
   container {
     name   = "weatherapi"
-    image  = "phaenir/weatherapi"
+    image  = "phaenir/weatherapi:${var.imagebuild}"
     cpu    = "1"
     memory = "1"
 
